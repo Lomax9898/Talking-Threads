@@ -3,7 +3,7 @@
 
 import socket
 import subprocess
-
+import time
 
 # defining functions used
 def bindPort(socket, port):
@@ -17,23 +17,30 @@ def bindPort(socket, port):
 # Essentially a switch statement
 def switch(case):
     if case == '1':
-        test = subprocess.check_output("date", shell=True)
+        #est = time.asctime( time.localtime(time.time()) )
+        test = subprocess.check_output("date", shell=True, universal_newlines=True)
         c.send(str(test).encode())
+        print("Sent Data")
     elif case == '2':
-        test = subprocess.check_output('uptime', shell=True)
+        test = subprocess.check_output('uptime', shell=True,universal_newlines=True)
         c.send(str(test).encode())
+        print("Sent Data")
     elif case == '3':
-        test = subprocess.check_output('free', shell=True)
+        test = subprocess.check_output('free', shell=True, universal_newlines=True)
         c.send(str(test).encode())
+        print("Sent Data")
     elif case == '4':
-        test = subprocess.check_output('netstat', shell=True)
+        test = subprocess.check_output('netstat', shell=True,universal_newlines=True)
         c.send(str(test).encode())
+        print("Sent Data")
     elif case == '5':
-        test = subprocess.check_output('users', shell=True)
+        test = subprocess.check_output('users', shell=True, universal_newlines=True)
         c.send(str(test).encode())
+        print("Sent Data")
     elif case == '6':
-        test = subprocess.check_output('ps -U root -u root -N', shell=True)
+        test = subprocess.check_output('ps -U root -u root -N', shell=True, universal_newlines=True)
         c.send(str(test).encode())
+        print("Sent Data")
 
 # Initialization
 s = socket.socket()
@@ -52,14 +59,18 @@ while True:
     c, addr = s.accept()
     print("incoming connection from " + str(addr))
     choice = c.recv(1024)
+    result = choice.decode("utf-8")
+    switch(result)
+    print("Received data")
 
     # Essentially a switch statement that is receiving the choices
-    while choice:
-        try:
-            switch(choice)
-            choice = c.recv(1024)
+    #while choice:
+        #try:
+            #choice = c.recv(1024)
+            #switch(choice.decode("utf-8"))
+
 
         # In case something happens with the client
-        except:
-            print("Was expecting a response, but lost connection")
-            choice = c.recv(1024)
+        #except:
+            #print("Was expecting a response, but lost connection")
+            #choice = c.recv(1024)
