@@ -5,6 +5,8 @@ import socket
 import time
 
 Restart = True
+
+# Initializing which port we're going to be testing on.
 while True:
     try:
         port = int(input("Please input the port you are testing on: "))
@@ -18,6 +20,7 @@ while True:
         print("Provide an integer value...")
         continue
 
+#Inputting the net address
 netaddress = input("Please input the network address you are testing on: ")
 while Restart == True:
     print("\nOperations:")
@@ -30,6 +33,7 @@ while Restart == True:
         "5 - Current Users, list of users current running on the server \n 6 - Running Processes, list of programs "
         "running on the server")
 
+    #Asking which operation to perform
     while True:
         try:
             op = input("Please enter a number of the operation you want to perform: ")
@@ -42,6 +46,8 @@ while Restart == True:
         except ValueError:
             print("Provide an integer value...")
             continue
+
+    #Asking how many times you want that operation to perform
     while True:
         try:
             clients = int(input("How many clients do you want to generate? "))
@@ -54,6 +60,7 @@ while Restart == True:
         except ValueError:
             print("Provide an integer value...")
             continue
+            
     # This is the instructions for each thread to carry out
     def Cread(times_list):
         c = socket.socket()
@@ -76,18 +83,27 @@ while Restart == True:
     for i in range(clients):
         t = threading.Thread(target=Cread, args=(thread_times,))
         t.start()
+
     # Used to have each thread complete it's tasks before going to the next thread
     # t.join()
     # Stops the following code from exectuing before the threads all finish their tasks
     while len(thread_times) != clients:
         time.sleep(1)
+
+    #Further time calculations for each thread
     total_time = sum(float(i) for i in thread_times)
     avg_time = total_time / clients
+
+    #Time calculates are printed
     print("The Total Turn-around Time:", str(round(total_time, 4)), "seconds")
     print("The Average Turn-around Time:", str(round(avg_time, 4)), "seconds")
+
+    #Confirmation on seeing the turnaround times for each thread
     view_times = input("Would you like to view turn-around Time (elapsed time) for each client request?(yes/no) ")
     if view_times == "yes":
         print(thread_times)
+
+    #Asking if you would like to restart
     restart = input("Would you like to do more operations?(yes/no) ")
     if restart == "no":
         restart = False
