@@ -64,11 +64,9 @@ while Restart == True:
     # This is the instructions for each thread to carry out
     def Cread(times_list):
         c = socket.socket()
-        print('Thread running.')
         c.connect((netaddress, port))
         time_start = time.perf_counter()
         c.send(bytes(op, "utf-8"))
-        print("Sent operation")
         serverdata = c.recv(1024)
         time_end = time.perf_counter()
         print('Received from the server :', serverdata.decode("ascii"))
