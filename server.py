@@ -62,15 +62,3 @@ while True:
     result = choice.decode("utf-8")
     switch(result)
     print("Received data")
-
-    # Essentially a switch statement that is receiving the choices
-    #while choice:
-        #try:
-            #choice = c.recv(1024)
-            #switch(choice.decode("utf-8"))
-
-
-        # In case something happens with the client
-        #except:
-            #print("Was expecting a response, but lost connection")
-            #choice = c.recv(1024)
