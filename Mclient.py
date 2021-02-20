@@ -96,6 +96,7 @@ while Restart == True:
     avg_time = total_time / clients
 
     # Time calculates are printed
+    print('______________________________________________________________________________________________')
     print("The Total Turn-around Time:", str(round(total_time, 4)), "seconds")
     print("The Average Turn-around Time:", str(round(avg_time, 4)), "seconds")
 
