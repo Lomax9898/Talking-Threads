@@ -12,8 +12,6 @@ while True:
         port = int(input("Please input the port you are testing on: "))
         if int(port) > 1025 and int(port) < 4998:
             break
-        elif port == "exit":
-            exit()
         else:
             print("The input should be a port between 1025-4998")
     except ValueError:
@@ -39,8 +37,6 @@ while Restart == True:
             op = input("Please enter a number of the operation you want to perform: ")
             if int(op) > 0 and int(op) < 7:
                 break
-            elif op == "exit":
-                exit()
             else:
                 print("The input should be a number between 1-6")
         except ValueError:
@@ -53,8 +49,6 @@ while Restart == True:
             clients = int(input("How many clients do you want to generate? "))
             if clients > 0 and clients < 101:
                 break
-            elif clients == "exit":
-                exit()
             else:
                 print("The input should be a reasonable number")
         except ValueError:
@@ -85,8 +79,6 @@ while Restart == True:
         t = threading.Thread(target=Cread, args=(thread_times,))
         t.start()
 
-    # Used to have each thread complete it's tasks before going to the next thread
-    # t.join()
     # Stops the following code from exectuing before the threads all finish their tasks
     while len(thread_times) != clients:
         time.sleep(1)
