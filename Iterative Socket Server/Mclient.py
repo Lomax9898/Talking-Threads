@@ -78,6 +78,7 @@ while Restart == True:
     for i in range(clients):
         t = threading.Thread(target=Cread, args=(thread_times,))
         t.start()
+        t.join()
 
     # Stops the following code from exectuing before the threads all finish their tasks
     while len(thread_times) != clients:
